@@ -5,13 +5,13 @@ import Loading from './Loading';
 
 function SelectLanguage({ selectedLanguage, onSelect }) {
 	const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
-	
+
 	return (
 		<ul className='languages'>
 			{languages.map((lang) => (
-				<li 
+				<li
 					style={lang === selectedLanguage ? {color: '#d0021b'}: null}
-					key={lang} 
+					key={lang}
 					onClick={() => onSelect(lang)}>
 					{lang}
 				</li>
@@ -59,33 +59,33 @@ class Popular extends React.Component {
 
 	state = {
 		selectedLanguage: 'All',
-		repos: null		
+		repos: null
 	}
 
 	componentDidMount() {
 		this.updateLanquage(this.state.selectedLanguage);
 	}
 
-	updateLanquage = (lang) => {
+	updateLanquage = async (lang) => {
 		this.setState(() => ({
 				selectedLanguage: lang,
 				repos: null
 			}
 		));
 
-		fetchPopularRepos(lang)
-			.then((repos) => this.setState(() => ({repos})));
+		const repos = await fetchPopularRepos(lang);
+		this.setState(() => ({repos}));
 	}
 
 	render() {
 		const { selectedLanguage, repos } = this.state;
 		return (
 			<div>
-				<SelectLanguage 
+				<SelectLanguage
 					selectedLanguage={selectedLanguage}
 					onSelect={this.updateLanquage}
 				/>
-				{!this.state.repos 
+				{!this.state.repos
 					? <Loading />
 					: <RepoGrid repos={repos} />
 				}
