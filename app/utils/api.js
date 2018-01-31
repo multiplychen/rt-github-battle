@@ -1,5 +1,5 @@
-const id = "1c6c484b55e3c0ad04cc";
-const sec = "e78e4edc1527f3c3808440593eb21848c1ad66c3";
+const id = process.env.YOUR_CLIENT_ID;
+const sec = process.env.YOUR_CLINRT_SECRET;
 const params = `?client_id=${id}&client_secret=${sec}`;
 
 async function getProfile(username) {

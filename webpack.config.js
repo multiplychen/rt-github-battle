@@ -1,8 +1,9 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
-var config = {
+const config = {
   entry: ['babel-polyfill', 'whatwg-fetch', './app/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -21,6 +22,10 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'app/index.html'
+    }),
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      safe: true // load .env.example (defaults to "false" which does not use dotenv-safe)
     })
   ]
 };
